@@ -1,8 +1,8 @@
-FROM golang:latest as builder
+FROM golang
 WORKDIR /app
-ADD ./*.go .
-ADD ./go.* .
+COPY . .
 RUN CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=linux go build -o guestbook .
+CMD ["/app/guestbook"]
 
 FROM scratch
 WORKDIR /app
