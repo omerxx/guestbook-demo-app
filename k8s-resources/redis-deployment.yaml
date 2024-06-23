@@ -1,12 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-master
+  name: redis
 spec:
   selector:
     matchLabels:
       app: redis
-      role: master
       tier: backend
   replicas: 1
   template:

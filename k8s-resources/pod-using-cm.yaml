@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-using-configmap
+spec:
+  containers:
+  - name: example-container
+    image: busybox:latest
+    command: ["sh", "-c", "echo $(MY_CONFIG_KEY) && sleep 3600"]
+    env:
+    - name: MY_CONFIG_KEY
+      valueFrom:
+        configMapKeyRef:
+          name: example-configmap
+          key: my-config-key
+  restartPolicy: Never
+

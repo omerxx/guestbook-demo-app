@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: guestbook
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  containers:
+  - name: guestbook
+    image: omerxx/guestbook-example
+    imagePullPolicy: Always
+    ports:
+    - name: http-server
+      containerPort: 3000
