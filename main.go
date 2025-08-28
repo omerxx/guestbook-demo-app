@@ -11,9 +11,7 @@ import (
 	"github.com/xyproto/simpleredis/v2"
 )
 
-var (
-	masterPool *simpleredis.ConnectionPool
-)
+var masterPool *simpleredis.ConnectionPool
 
 func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
 	key := mux.Vars(req)["key"]
@@ -57,7 +55,11 @@ func HandleError(result interface{}, err error) (r interface{}) {
 }
 
 func main() {
-	masterPool = simpleredis.NewConnectionPoolHost("redis:6379")
+	redisURL := os.Getenv("REDIS_URL")
+	if redisURL == "" {
+		redisURL = "localhost:6379"
+	}
+	masterPool = simpleredis.NewConnectionPoolHost(redisURL)
 	defer masterPool.Close()
 
 	r := mux.NewRouter()
